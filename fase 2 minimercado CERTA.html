@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiniMercado Online - Sua Compra Prática e Rápida</title>
+    <meta name="description" content="MiniMercado online - Frutas, verduras, alimentos não perecíveis e produtos de higiene com entrega ou retirada no local.">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Fonte para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #FF9800;
+            --dark-color: #2E7D32;
+            --light-color: #E8F5E9;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+        
+        .navbar {
+            background-color: var(--primary-color) !important;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--dark-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--dark-color);
+        }
+        
+        .card {
+            transition: transform 0.3s;
+            margin-bottom: 20px;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .carousel-item img {
+            height: 400px;
+            object-fit: cover;
+        }
+        
+        .section-title {
+            color: var(--dark-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+        }
+        
+        .required-field::after {
+            content: " *";
+            color: red;
+        }
+        
+        .service-card {
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .service-card.selected {
+            border: 2px solid var(--secondary-color);
+            background-color: var(--light-color);
+        }
+        
+        .acessibilidade {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de acessibilidade -->
+    <div class="acessibilidade">
+        <button class="btn btn-secondary rounded-circle" onclick="alterarFonte('aumentar')" aria-label="Aumentar tamanho da fonte">
+            <i class="fas fa-font"></i> <i class="fas fa-plus"></i>
+        </button>
+        <button class="btn btn-secondary rounded-circle" onclick="alterarFonte('diminuir')" aria-label="Diminuir tamanho da fonte">
+            <i class="fas fa-font"></i> <i class="fas fa-minus"></i>
+        </button>
+        <button class="btn btn-secondary rounded-circle" onclick="altoContraste()" aria-label="Alternar alto contraste">
+            <i class="fas fa-adjust"></i>
+        </button>
+    </div>
+
+    <!-- Cabeçalho -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <i class="fas fa-store"></i> MiniMercado Online
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#inicio">Início</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#produtos">Produtos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#servicos">Serviços</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#cadastro">Cadastro</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contato">Contato</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Carrossel de Destaques -->
+    <section id="inicio" class="mb-5">
+        <div id="carouselDestaques" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselDestaques" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#carouselDestaques" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#carouselDestaques" data-bs-slide-to="2"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="d-block w-100" alt="Promoção de frutas e verduras frescas com até 30% de desconto">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Ofertas da Semana</h5>
+                        <p>Frutas e verduras frescas com até 30% de desconto</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://assets.ype.ind.br/uploads/mistura_de_produtos_ypedia-scaled-1698513015.jpg" class="d-block w-100" alt="Produtos de limpeza com preços especiais para estoque">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Produtos de Limpeza</h5>
+                        <p>Preços especiais para você abastecer seu estoque</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://www.cobli.co/wp-content/uploads/2021/10/AdobeStock_100215011-1-scaled.jpeg" class="d-block w-100" alt="Serviço de entrega rápida em domicílio com taxa especial">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Entrega Rápida</h5>
+                        <p>Receba em casa com toda comodidade e segurança</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselDestaques" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselDestaques" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Próximo</span>
+            </button>
+        </div>
+    </section>
+
+    <main class="container">
+        <!-- Seção de Produtos -->
+        <section id="produtos" class="my-5">
+            <h2 class="text-center section-title">Nossos Produtos</h2>
+            
+            <!-- Categoria 1: Frutas e Verduras -->
+            <h3 class="mt-4 mb-3"><i class="fas fa-apple-alt me-2"></i>Frutas e Verduras</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <img src="https://ceagesp.gov.br/wp-content/uploads/2019/12/Banana_pratapng.png" class="card-img-top" alt="Banana prata">
+                        <div class="card-body">
+                            <h5 class="card-title">Banana Prata (kg)</h5>
+                            <p class="card-text">Banana Prata.</p>
+                            <p class="fw-bold text-primary">R$ 4,99</p>
+                            <button class="btn btn-outline-primary" onclick="adicionarAoCarrinho('Banana Prata', 4.99)">Adicionar ao Carrinho</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <img src="https://shizenorganicos.com.br/wp-content/uploads/2020/12/alface_crespa-removebg-preview.png" class="card-img-top" alt="Alface crespa">
+                        <div class="card-body">
+                            <h5 class="card-title">Alface Crespa (un)</h5>
+                            <p class="card-text">Alface crespa.</p>
+                            <p class="fw-bold text-primary">R$ 2,50</p>
+                            <button class="btn btn-outline-primary" onclick="adicionarAoCarrinho('Alface Crespa', 2.50)">Adicionar ao Carrinho</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Categoria 2: Produtos alimentícios não perecíveis -->
+            <h3 class="mt-5 mb-3"><i class="fas fa-egg me-2"></i>Produtos Não Perecíveis</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <img src="https://io.convertiez.com.br/m/superpaguemenos/shop/products/images/20403/medium/arroz-raroz-tipo-1-5kg_89550.png" class="card-img-top" alt="Arroz branco tipo 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Arroz Branco (5kg)</h5>
+                            <p class="card-text">Arroz branco tipo 1.</p>
+                            <p class="fw-bold text-primary">R$ 22,90</p>
+                            <button class="btn btn-outline-primary" onclick="adicionarAoCarrinho('Arroz Branco', 22.90)">Adicionar ao Carrinho</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <img src="https://kicaldo.com.br/wp-content/uploads/2020/07/Kicaldo-feijaocarioca.png" class="card-img-top" alt="Feijão carioca">
+                        <div class="card-body">
+                            <h5 class="card-title">Feijão Carioca (1kg)</h5>
+                            <p class="card-text">Feijão carioca.</p>
+                            <p class="fw-bold text-primary">R$ 8,50</p>
+                            <button class="btn btn-outline-primary" onclick="adicionarAoCarrinho('Feijão Preto', 8.50)">Adicionar ao Carrinho</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Categoria 3: Produtos de higiene e limpeza -->
+            <h3 class="mt-5 mb-3"><i class="fas fa-pump-soap me-2"></i>Higiene e Limpeza</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <img src="https://destro.fbitsstatic.net/img/p/detergente-liquido-ype-antibac-500ml-81196/267751.jpg?w=500&h=500&v=202501231555&qs=ignore" class="card-img-top" alt="Detergente Líquido">
+                        <div class="card-body">
+                            <h5 class="card-title">Detergente Líquido (500ml)</h5>
+                            <p class="card-text">Detergente Líquido.</p>
+                            <p class="fw-bold text-primary">R$ 2,99</p>
+                            <button class="btn btn-outline-primary" onclick="adicionarAoCarrinho('Detergente Líquido', 2.99)">Adicionar ao Carrinho</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <img src="https://http2.mlstatic.com/D_NQ_NP_712585-CBT89164352184_082025-O-porta-sabonete-sem-furo-2pcs-sem-marca-viagem.webp" class="card-img-top" alt="Sabonete neutro">
+                        <div class="card-body">
+                            <h5 class="card-title">Sabonete (un)</h5>
+                            <p class="card-text">Sabonete neutro.</p>
+                            <p class="fw-bold text-primary">R$ 1,50</p>
+                            <button class="btn btn-outline-primary" onclick="adicionarAoCarrinho('Sabonete', 1.50)">Adicionar ao Carrinho</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Serviços -->
+        <section id="servicos" class="my-5">
+            <h2 class="text-center section-title">Nossos Serviços</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card service-card h-100" id="retirada-local" onclick="selecionarServico('retirada')">
+                        <div class="card-body text-center">
+                            <div class="feature-icon">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <h5 class="card-title">Retirada no Local</h5>
+                            <p class="card-text">Faça seu pedido online e retire pessoalmente em nossa loja. Economize o valor da entrega!</p>
+                            <p class="fw-bold text-success">Taxa de serviço: Grátis</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card service-card h-100" id="tele-entrega" onclick="selecionarServico('entrega')">
+                        <div class="card-body text-center">
+                            <div class="feature-icon">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <h5 class="card-title">Tele-entrega</h5>
+                            <p class="card-text">Receba suas compras no conforto da sua casa. Entregamos em até 2 horas na região central.</p>
+                            <p class="fw-bold text-success">Taxa de serviço: R$ 5,00</p>
+                            <p class="fst-italic">Consulte disponibilidade para seu endereço</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Formulário de Agendamento (inicialmente oculto) -->
+            <div id="form-agendamento" class="mt-4 p-4 border rounded" style="display: none;">
+                <h4 class="mb-3">Agendamento</h4>
+                <form id="agendamento-form">
+                    <div class="mb-3">
+                        <label for="data-agendamento" class="form-label">Data para <span id="tipo-agendamento">retirada/entrega</span>:</label>
+                        <input type="date" class="form-control" id="data-agendamento" required min="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="horario" class="form-label">Horário:</label>
+                        <select class="form-select" id="horario" required>
+                            <option value="">Selecione um horário</option>
+                            <option value="08:00">08:00 - 09:00</option>
+                            <option value="09:00">09:00 - 10:00</option>
+                            <option value="10:00">10:00 - 11:00</option>
+                            <option value="11:00">11:00 - 12:00</option>
+                            <option value="13:00">13:00 - 14:00</option>
+                            <option value="14:00">14:00 - 15:00</option>
+                            <option value="15:00">15:00 - 16:00</option>
+                            <option value="16:00">16:00 - 17:00</option>
+                            <option value="17:00">17:00 - 18:00</option>
+                            <option value="18:00">18:00 - 19:00</option>
+                        </select>
+                    </div>
+                    <div id="endereco-entrega" style="display: none;">
+                        <div class="mb-3">
+                            <label for="endereco" class="form-label">Endereço de entrega:</label>
+                            <textarea class="form-control" id="endereco" rows="2"></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Confirmar Agendamento</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Formulário de Cadastro -->
+        <section id="cadastro" class="my-5">
+            <h2 class="text-center section-title">Cadastro do Cliente</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <form id="cadastro-form" class="p-4 border rounded">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="nome" class="form-label required-field">Nome completo</label>
+                                <input type="text" class="form-control" id="nome" placeholder="Digite seu nome completo" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="cpf" class="form-label required-field">CPF</label>
+                                <input type="text" class="form-control" id="cpf" placeholder="000.000.000-00" required maxlength="14" oninput="formatarCPF(this)">
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="email" class="form-label required-field">E-mail</label>
+                                <input type="email" class="form-control" id="email" placeholder="seu@email.com" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="telefone" class="form-label required-field">Telefone</label>
+                                <input type="tel" class="form-control" id="telefone" placeholder="(51) 99999-9999" required maxlength="15" oninput="formatarTelefone(this)">
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="endereco-completo" class="form-label required-field">Endereço completo</label>
+                            <input type="text" class="form-control" id="endereco-completo" placeholder="Rua, número, bairro" required>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="cidade" class="form-label required-field">Cidade</label>
+                                <input type="text" class="form-control" id="cidade" placeholder="Sua cidade" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="cep" class="form-label required-field">CEP</label>
+                                <input type="text" class="form-control" id="cep" placeholder="00000-000" required maxlength="9" oninput="formatarCEP(this)">
+                            </div>
+                        </div>
+                        
+
+                        <div class="mb-3">
+                            <label for="nascimento" class="form-label">Data de nascimento</label>
+                            <input type="date" class="form-control" id="nascimento">
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="newsletter">
+                            <label class="form-check-label" for="newsletter">Desejo receber promoções por e-mail</label>
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="termos" required>
+                            <label class="form-check-label" for="termos">Li e aceito os termos de uso</label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary w-100">Finalizar Cadastro</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="py-5 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5>MiniMercado Online</h5>
+                    <p>Rua Porto Alegre, 123 - Centro</p>
+                    <p>Telefone: (51) 3456-7890</p>
+                    <p>Email: contato@minimercado.com.br</p>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <h5>Horário de Funcionamento</h5>
+                    <p>Segunda a Sábado: 8h às 20h</p>
+                    <p>Domingos e Feriados: 8h às 13h</p>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <h5>Links Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#inicio" class="text-white">Início</a></li>
+                        <li><a href="#produtos" class="text-white">Produtos</a></li>
+                        <li><a href="#servicos" class="text-white">Serviços</a></li>
+                        <li><a href="#cadastro" class="text-white">Cadastro</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <p>&copy; 2025 MiniMercado Online Fase 2 - Todos os direitos reservados</p>
+                <p>Projeto acadêmico - Desenvolvido por Gustavo Demo</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- JavaScript -->
+    <script>
+        // Função para inicializar a data mínima do agendamento (hoje)
+        document.addEventListener('DOMContentLoaded', function() {
+            const dataInput = document.getElementById('data-agendamento');
+            const hoje = new Date();
+            const dataMinima = hoje.toISOString().split('T')[0];
+            dataInput.min = dataMinima;
+        });
+        
+        // Função para selecionar o tipo de serviço
+        function selecionarServico(tipo) {
+            const retiradaCard = document.getElementById('retirada-local');
+            const entregaCard = document.getElementById('tele-entrega');
+            const formAgendamento = document.getElementById('form-agendamento');
+            const tipoAgendamento = document.getElementById('tipo-agendamento');
+            const enderecoEntrega = document.getElementById('endereco-entrega');
+            
+            if (tipo === 'retirada') {
+                retiradaCard.classList.add('selected');
+                entregaCard.classList.remove('selected');
+                tipoAgendamento.textContent = 'retirada';
+                enderecoEntrega.style.display = 'none';
+            } else {
+                entregaCard.classList.add('selected');
+                retiradaCard.classList.remove('selected');
+                tipoAgendamento.textContent = 'entrega';
+                enderecoEntrega.style.display = 'block';
+            }
+            
+            formAgendamento.style.display = 'block';
+        }
+        
+        // Função para adicionar produtos ao carrinho
+        function adicionarAoCarrinho(nome, preco) {
+            alert(`Produto adicionado ao carrinho:\n${nome} - R$ ${preco.toFixed(2)}`);
+            // Aqui seria a implementação completa do carrinho
+        }
+        
+        // Funções de formatação de campos
+        function formatarCPF(campo) {
+            let value = campo.value.replace(/\D/g, '');
+            if (value.length > 11) value = value.slice(0, 11);
+            
+            if (value.length > 9) {
+                value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+            } else if (value.length > 6) {
+                value = value.replace(/(\d{3})(\d{3})(\d+)/, '$1.$2.$3');
+            } else if (value.length > 3) {
+                value = value.replace(/(\d{3})(\d+)/, '$1.$2');
+            }
+            campo.value = value;
+        }
+        
+        function formatarTelefone(campo) {
+            let value = campo.value.replace(/\D/g, '');
+            if (value.length > 11) value = value.slice(0, 11);
+            
+            if (value.length > 10) {
+                value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+            } else if (value.length > 6) {
+                value = value.replace(/(\d{2})(\d{4})(\d+)/, '($1) $2-$3');
+            } else if (value.length > 2) {
+                value = value.replace(/(\d{2})(\d+)/, '($1) $2');
+            }
+            campo.value = value;
+        }
+        
+        function formatarCEP(campo) {
+            let value = campo.value.replace(/\D/g, '');
+            if (value.length > 8) value = value.slice(0, 8);
+            
+            if (value.length > 5) {
+                value = value.replace(/(\d{5})(\d+)/, '$1-$2');
+            }
+            campo.value = value;
+        }
+        
+        // Funções de acessibilidade
+        function alterarFonte(acao) {
+            const elementoHtml = document.documentElement;
+            let tamanhoFonte = parseInt(window.getComputedStyle(elementoHtml).fontSize);
+            
+            if (acao === 'aumentar' && tamanhoFonte < 24) {
+                elementoHtml.style.fontSize = (tamanhoFonte + 2) + 'px';
+            } else if (acao === 'diminuir' && tamanhoFonte > 12) {
+                elementoHtml.style.fontSize = (tamanhoFonte - 2) + 'px';
+            }
+        }
+        
+        function altoContraste() {
+            document.body.classList.toggle('alto-contraste');
+            if (document.body.classList.contains('alto-contraste')) {
+                document.body.style.backgroundColor = '#000';
+                document.body.style.color = '#fff';
+                document.querySelectorAll('*').forEach(el => {
+                    el.style.backgroundColor = '#000';
+                    el.style.color = '#fff';
+                    el.style.borderColor = '#fff';
+                });
+            } else {
+                document.body.style.backgroundColor = '';
+                document.body.style.color = '';
+                document.querySelectorAll('*').forEach(el => {
+                    el.style.backgroundColor = '';
+                    el.style.color = '';
+                    el.style.borderColor = '';
+                });
+            }
+        }
+        
+        // Validação dos formulários
+        document.getElementById('cadastro-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Cadastro realizado com sucesso! Em breve você receberá um e-mail de confirmação.');
+            this.reset();
+        });
+        
+        document.getElementById('agendamento-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const servicoSelecionado = document.querySelector('.service-card.selected h5').textContent;
+            alert(`Agendamento confirmado!\nServiço: ${servicoSelecionado}\nData: ${document.getElementById('data-agendamento').value}\nHorário: ${document.getElementById('horario').value}`);
+            this.reset();
+            document.getElementById('form-agendamento').style.display = 'none';
+            document.querySelectorAll('.service-card').forEach(card => card.classList.remove('selected'));
+        });
+    </script>
+</body>
+</html>
